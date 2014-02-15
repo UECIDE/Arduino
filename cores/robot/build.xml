@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="robot" default="build">
+
+    <property name="version" value="1.0.5" />
+    <property name="revision" value="1" />
+
+    <target name="update">
+        <mkdir dir="../../files" />
+        <exec executable="git" failonerror="false" dir="../../files">
+            <arg value="clone" />
+            <arg value="--depth" />
+            <arg value="1" />
+            <arg value="git@github.com:arduino/Arduino.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="../../files/Arduino">
+            <arg value="pull" />
+        </exec>
+    </target>
+
+    <target name="build" depends="update">
+        <mkdir dir="build" />
+        <mkdir dir="build/robot" />
+        <mkdir dir="build/robot/api" />
+        <mkdir dir="build/robot/examples" />
+        <mkdir dir="build/robot/libraries" />
+        <mkdir dir="build/robot/tools" />
+        <copy todir="build/robot/api"> <fileset dir="../../files/Arduino/hardware/arduino/cores/robot/" includes="**/*"/> </copy>
+        <copy todir="build/robot/libraries"> <fileset dir="../../files/Arduino/libraries/" includes="**/*"/> </copy>
+        <copy todir="build/robot/examples"> <fileset dir="../../files/Arduino/build/shared/examples/" includes="**/*"/> </copy>
+
+        <copy todir="build/robot/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
+        <copy todir="build/robot" file="../../files/Arduino/build/shared/lib/keywords.txt" />
+        <copy todir="build/robot" file="core.txt" />
+        <replace file="build/robot/core.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/robot/core.txt" token="%REVISION%" value="${revision}" />
+
+        <jar basedir="build" destfile="robot.jar">
+            <manifest>
+                <attribute name="Version" value="${version}.${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Core" value="robot" />
+                <attribute name="Platform" value="any" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Description" value="Arduino 1.0.5 Robot Control API" />
+            </manifest>
+        </jar>
+    </target>
+</project>

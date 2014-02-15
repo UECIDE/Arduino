@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<project name="avr-gcc" default="build">
+
+    <property name="version" value="4.1.3" />
+    <property name="revision" value="1" />
+
+    <target name="build" depends="structure,macosx,linux32,linux64,windows">
+    </target>
+
+    <target name="structure">
+        <mkdir dir="files" />
+    </target>
+
+    <target name="update">
+        <mkdir dir="../../files" />
+        <exec executable="git" failonerror="false" dir="../../files">
+            <arg value="clone" />
+            <arg value="--depth" />
+            <arg value="1" />
+            <arg value="git@github.com:arduino/Arduino.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="../../files/Arduino">
+            <arg value="pull" />
+        </exec>
+    </target>
+
+    <target name="macosx" depends="update">
+        <mkdir dir="build/avr-gcc" />
+        <mkdir dir="files" />
+        <unzip dest="files" src="../../files/Arduino/build/macosx/dist/tools-universal.zip" overwrite="false" />
+        <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-macosx.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="macosx" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="linux32">
+        <mkdir dir="build/avr-gcc" />
+        <mkdir dir="files" />
+        <untar compression="bzip2" dest="files" src="../../files/Arduino/build/linux/avr_tools_linux32.tar.bz2" overwrite="false" />
+        <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-linux32.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="i386" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="linux64">
+        <mkdir dir="build/avr-gcc" />
+        <mkdir dir="files" />
+        <untar compression="bzip2" dest="files" src="../../files/Arduino/build/linux/avr_tools_linux64.tar.bz2" overwrite="false" />
+        <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-linux64.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="amd64" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="windows">
+        <mkdir dir="build/avr-gcc" />
+        <mkdir dir="files" />
+        <unzip dest="files" src="../../files/Arduino/build/windows/avr_tools.zip" overwrite="false" />
+        <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-windows.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="amd64" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+</project>

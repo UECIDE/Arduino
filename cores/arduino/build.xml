@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="arduino" default="build">
+
+    <property name="version" value="1.0.5" />
+    <property name="revision" value="1" />
+
+    <target name="update">
+        <mkdir dir="../../files" />
+        <exec executable="git" failonerror="false" dir="../../files">
+            <arg value="clone" />
+            <arg value="--depth" />
+            <arg value="1" />
+            <arg value="git@github.com:arduino/Arduino.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="../../files/Arduino">
+            <arg value="pull" />
+        </exec>
+    </target>
+
+    <target name="build" depends="update">
+        <mkdir dir="build" />
+        <mkdir dir="build/arduino" />
+        <mkdir dir="build/arduino/api" />
+        <mkdir dir="build/arduino/examples" />
+        <mkdir dir="build/arduino/libraries" />
+        <mkdir dir="build/arduino/tools" />
+        <copy todir="build/arduino/api"> <fileset dir="../../files/Arduino/hardware/arduino/cores/arduino/" includes="**/*"/> </copy>
+        <copy todir="build/arduino/libraries"> <fileset dir="../../files/Arduino/libraries/" includes="**/*"/> </copy>
+        <copy todir="build/arduino/examples"> <fileset dir="../../files/Arduino/build/shared/examples/" includes="**/*"/> </copy>
+
+        <copy todir="build/arduino/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
+        <copy todir="build/arduino" file="../../files/Arduino/build/shared/lib/keywords.txt" />
+        <copy todir="build/arduino" file="core.txt" />
+        <replace file="build/arduino/core.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/arduino/core.txt" token="%REVISION%" value="${revision}" />
+
+        <jar basedir="build" destfile="arduino.jar">
+            <manifest>
+                <attribute name="Version" value="${version}.${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Core" value="arduino" />
+                <attribute name="Platform" value="any" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Description" value="Arduino 1.0.5 API" />
+            </manifest>
+        </jar>
+    </target>
+</project>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="cosa" default="build">
+
+    <property name="version" value="1.0.5" />
+    <property name="revision" value="1" />
+
+    <target name="update">
+        <mkdir dir="files" />
+        <exec executable="git" failonerror="false" dir="files">
+            <arg value="clone" />
+            <arg value="--depth" />
+            <arg value="1" />
+            <arg value="git@github.com:mikaelpatel/Cosa.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="files/Cosa">
+            <arg value="pull" />
+        </exec>
+    </target>
+
+    <target name="build" depends="update">
+        <mkdir dir="build" />
+        <mkdir dir="build/Cosa" />
+        <mkdir dir="build/Cosa/api" />
+        <mkdir dir="build/Cosa/examples" />
+        <mkdir dir="build/Cosa/libraries" />
+        <mkdir dir="build/Cosa/tools" />
+
+        <copy todir="build/Cosa/api"> <fileset dir="files/Cosa/cores/cosa/" includes="**/*"/> </copy>
+        <copy todir="build/Cosa/examples"> <fileset dir="files/Cosa/examples/" includes="**/*"/> </copy>
+
+        <copy todir="build/Cosa/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
+        <copy todir="build/Cosa" file="../../files/Arduino/build/shared/lib/keywords.txt" />
+        <copy todir="build/Cosa" file="core.txt" />
+        <replace file="build/Cosa/core.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/Cosa/core.txt" token="%REVISION%" value="${revision}" />
+
+        <jar basedir="build" destfile="Cosa.jar">
+            <manifest>
+                <attribute name="Version" value="${version}.${revision}" />
+                <attribute name="Author" value="Mikael Patel" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Core" value="Cosa" />
+                <attribute name="Platform" value="any" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Description" value="Cosa is an object-oriented platform for Arduino that supports an event-driven programming paradigm with simple finite state machines." />
+            </manifest>
+        </jar>
+    </target>
+</project>
