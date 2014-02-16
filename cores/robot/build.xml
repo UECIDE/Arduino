@@ -36,7 +36,7 @@
 
         <jar basedir="build" destfile="robot.jar">
             <manifest>
-                <attribute name="Version" value="${version}.${revision}" />
+                <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Arduino" />
                 <attribute name="Compiler" value="avr-gcc" />
                 <attribute name="Core" value="robot" />
@@ -46,4 +46,10 @@
             </manifest>
         </jar>
     </target>
+
+    <target name="install" depends="build">
+        <move file="robot.jar" todir="/var/www/uecide/plugins/cores" />
+    </target>
+
+
 </project>

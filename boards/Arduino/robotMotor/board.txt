@@ -21,6 +21,7 @@ build.variant=robot_motor
 group=Arduino
 family=avr
 version=0.5
+revision=1
 upload.using=usbcdc
 upload.reset.baud=1200
 core=robot

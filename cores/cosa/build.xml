@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="cosa" default="build">
 
-    <property name="version" value="1.0.5" />
+    <property name="version" value="1" />
     <property name="revision" value="1" />
 
     <target name="update">
@@ -36,7 +36,7 @@
 
         <jar basedir="build" destfile="Cosa.jar">
             <manifest>
-                <attribute name="Version" value="${version}.${revision}" />
+                <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Mikael Patel" />
                 <attribute name="Compiler" value="avr-gcc" />
                 <attribute name="Core" value="Cosa" />
@@ -46,4 +46,10 @@
             </manifest>
         </jar>
     </target>
+
+    <target name="install" depends="build">
+        <move file="Cosa.jar" todir="/var/www/uecide/plugins/cores" />
+    </target>
+
+
 </project>

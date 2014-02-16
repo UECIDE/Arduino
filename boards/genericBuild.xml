@@ -16,8 +16,8 @@
         </foreach>
     </target>
     
-    <target name="publish">
-        <foreach target="publish-board" param="filepath" inheritall="true">
+    <target name="install" depends="build">
+        <foreach target="install-board" param="filepath" inheritall="true">
             <path>
                 <fileset dir=".">
                     <include name="*.jar" />
@@ -41,7 +41,7 @@
             <manifest>
                 <attribute name="Group" value="${group}" />
                 <attribute name="Board" value="${subdir}" />
-                <attribute name="Version" value="${version}" />
+                <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="${group}" />
                 <attribute name="Platform" value="any" />
                 <attribute name="Description" value="${name}" />
@@ -50,13 +50,9 @@
         </jar>
     </target>
 
-    <target name="publish-board">
+    <target name="install-board">
         <basename file="${filepath}" property="file"/>
-        <exec executable="rsync">
-            <arg value="-ap" />
-            <arg value="${file}" />
-            <arg value="autobuild.majenko.co.uk:/var/www/uecide/p/boards/" />
-        </exec>
+        <move file="${file}" todir="/var/www/uecide/plugins/boards/" />
     </target>
 
 </project>

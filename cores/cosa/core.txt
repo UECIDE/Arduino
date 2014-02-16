@@ -5,8 +5,9 @@ compiler=avr-gcc
 core.path=api
 core.flags=-DF_CPU=${build.f_cpu}::-DARDUINO=${core.version}::-D${board}
 core.header=Arduino.h
-core.version=%VERSION%
-core.revision=%REVISION%
+core.version=105
+version=%VERSION%
+revision=%REVISION%
 
 family=avr
 

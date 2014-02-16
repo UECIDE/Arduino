@@ -1,5 +1,6 @@
 name=avr-gcc-481
-version=%VERSION%-%REVISION%
+version=%VERSION%
+revision=%REVISION%
 family=avr
 
 optimize=-Os

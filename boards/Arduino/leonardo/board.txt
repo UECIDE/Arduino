@@ -21,6 +21,7 @@ build.variant=leonardo
 group=Arduino
 family=avr
 version=0.7
+revision=1
 upload.arduino.using=usbcdc
 upload.arduino.reset.baud=1200
 upload.arduino.dtr=no

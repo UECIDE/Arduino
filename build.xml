@@ -21,5 +21,6 @@
         <delete dir="cores/cosa/build" />
         <delete dir="cores/cosa/files" />
         <delete dir="compilers/avr-gcc-stock/files" />
+        <delete dir="compilers/avr-gcc-481/files" />
     </target>
 </project>

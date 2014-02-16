@@ -18,4 +18,5 @@ build.variant=eightanaloginputs
 group=Arduino
 family=avr
 version=0.3
+revision=1
 core=arduino

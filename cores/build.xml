@@ -11,8 +11,8 @@
             <dirset dir="." includes="*"/>
         </subant>
     </target>
-    <target name="publish">
-        <subant target="publish">
+    <target name="install">
+        <subant target="install">
             <dirset dir="." includes="*"/>
         </subant>
     </target>

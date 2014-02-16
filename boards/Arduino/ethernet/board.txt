@@ -17,4 +17,5 @@ build.core=arduino
 group=Arduino
 family=avr
 version=0.2
+revision=1
 core=arduino
