@@ -1,0 +1,25 @@
+<project name="boards" default="build">
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="/usr/share/java/ant-contrib-1.0b5-SNAPSHOT.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="build">
+        <subant target="build" buildpath="compilers" /> 
+        <subant target="build" buildpath="cores" /> 
+        <subant target="build" buildpath="boards" /> 
+    </target>
+
+    <target name="clean">
+        <delete dir="files" />
+        <delete dir="cores/arduino/build" />
+        <delete dir="cores/arduino/files" />
+        <delete dir="cores/robot/build" />
+        <delete dir="cores/robot/files" />
+        <delete dir="cores/cosa/build" />
+        <delete dir="cores/cosa/files" />
+        <delete dir="compilers/avr-gcc-stock/files" />
+    </target>
+</project>
