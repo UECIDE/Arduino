@@ -1,5 +1,6 @@
 name=avr-gcc
 version=%VERSION%-%REVISION%
+family=avr
 
 optimize=-Os
 warnings=-w

@@ -2,7 +2,7 @@
 <project name="avr-gcc" default="build">
 
     <property name="version" value="4.3.2" />
-    <property name="revision" value="1" />
+    <property name="revision" value="2" />
 
     <target name="build" depends="structure,linux32,linux64,macosx,windows">
     </target>
@@ -53,7 +53,7 @@
         <delete dir="build" />
     </target>
 
-    <target name="linux32">
+    <target name="linux32" depends="update">
         <mkdir dir="build/avr-gcc" />
         <mkdir dir="files" />
         <exec dir="files" executable="tar">
@@ -79,7 +79,7 @@
         <delete dir="build" />
     </target>
 
-    <target name="linux64">
+    <target name="linux64" depends="update">
         <mkdir dir="build/avr-gcc" />
         <mkdir dir="files" />
         <exec dir="files" executable="tar">
@@ -105,7 +105,7 @@
         <delete dir="build" />
     </target>
 
-    <target name="windows">
+    <target name="windows" depends="update">
         <mkdir dir="build/avr-gcc" />
         <mkdir dir="files" />
         <unzip dest="files" src="../../files/Arduino/build/windows/avr_tools.zip" overwrite="false" />
