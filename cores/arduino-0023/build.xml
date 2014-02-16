@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="arduino-0023" default="build">
+
+    <property name="version" value="0023" />
+    <property name="revision" value="1" />
+
+    <target name="build">
+        <mkdir dir="files" />
+        <get src='http://arduino.googlecode.com/files/arduino-0023.tgz' dest="files/arduino-0023.tgz" usetimestamp="true" />
+        <untar compression="gzip" src="files/arduino-0023.tgz" dest="files/" overwrite="false" />
+        <mkdir dir="build" />
+        <mkdir dir="build/arduino-0023" />
+        <mkdir dir="build/arduino-0023/api" />
+        <mkdir dir="build/arduino-0023/examples" />
+        <mkdir dir="build/arduino-0023/libraries" />
+        <mkdir dir="build/arduino-0023/tools" />
+        <copy todir="build/arduino-0023/api"> <fileset dir="files/arduino-0023/hardware/arduino/cores/arduino/" includes="**/*"/> </copy>
+        <copy todir="build/arduino-0023/libraries"> <fileset dir="files/arduino-0023/libraries/" includes="**/*"/> </copy>
+        <copy todir="build/arduino-0023/examples"> <fileset dir="files/arduino-0023/examples/" includes="**/*"/> </copy>
+
+        <copy todir="build/arduino-0023/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
+        <copy todir="build/arduino-0023" file="files/arduino-0023/lib/keywords.txt" />
+        <copy todir="build/arduino-0023" file="core.txt" />
+        <replace file="build/arduino-0023/core.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/arduino-0023/core.txt" token="%REVISION%" value="${revision}" />
+
+        <jar basedir="build" destfile="arduino-0023.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Core" value="arduino-0023" />
+                <attribute name="Platform" value="any" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Description" value="Classic Arduino 0023 API" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="install" depends="build">
+        <move file="arduino-0023.jar" todir="/var/www/uecide/plugins/cores" />
+    </target>
+
+    <target name="clean">
+        <delete dir="build" />
+        <delete dir="files" />
+        <delete file="arduino-0023.jar" />
+    </target>
+
+
+</project>

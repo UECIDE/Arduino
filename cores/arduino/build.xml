@@ -51,5 +51,10 @@
         <move file="arduino.jar" todir="/var/www/uecide/plugins/cores" />
     </target>
 
+    <target name="clean">
+        <delete dir="build" />
+        <delete file="arduino.jar" />
+    </target>
+
 
 </project>

@@ -2,7 +2,7 @@
 <project name="cosa" default="build">
 
     <property name="version" value="1" />
-    <property name="revision" value="1" />
+    <property name="revision" value="2" />
 
     <target name="update">
         <mkdir dir="files" />
@@ -33,6 +33,8 @@
         <copy todir="build/Cosa" file="core.txt" />
         <replace file="build/Cosa/core.txt" token="%VERSION%" value="${version}" />
         <replace file="build/Cosa/core.txt" token="%REVISION%" value="${revision}" />
+        <replace dir="build/Cosa" token="__PROGMEM" value="PROGMEM" includes="**/*" excludes="**/Types.h" />
+
 
         <jar basedir="build" destfile="Cosa.jar">
             <manifest>
@@ -51,5 +53,10 @@
         <move file="Cosa.jar" todir="/var/www/uecide/plugins/cores" />
     </target>
 
+    <target name="clean">
+        <delete dir="files" />
+        <delete dir="build" />
+        <delete file="Cosa.jar" />
+    </target>
 
 </project>
