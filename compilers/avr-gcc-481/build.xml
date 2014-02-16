@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<project name="avr-gcc-481" default="build">
+
+    <property name="version" value="4.8.1" />
+    <property name="revision" value="1" />
+
+    <target name="build" depends="structure,linux32,linux64,macosx,windows">
+    </target>
+
+    <target name="install" depends="build">
+        <move file="avr-gcc-481-linux32.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="avr-gcc-481-linux64.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="avr-gcc-481-macosx.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="avr-gcc-481-windows.jar" todir="/var/www/uecide/plugins/compilers" />
+    </target>
+
+    <target name="structure">
+        <mkdir dir="files" />
+    </target>
+
+    <target name="macosx" depends="">
+        <mkdir dir="files" />
+        <get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-macosx.zip' dest='files/avr-gcc-macosx.zip' usetimestamp='true' />
+        <unzip dest="files" src="files/avr-gcc-macosx.zip" overwrite="false" />
+        <mkdir dir="build/avr-gcc-481" />
+        <copy todir="build/avr-gcc-481"> <fileset dir="files/Arduino.app/Contents/Resources/Java/hardware/tools/avr/" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc-481/" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-481-macosx.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc-481" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="macosx" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/Arduino.app" />
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="linux32">
+        <mkdir dir="files" />
+        <get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-linux32.tgz' dest='files/avr-gcc-linux32.tgz' usetimestamp='true' />
+        <exec dir="files" executable="tar">
+            <arg value="-zxf" />
+            <arg value="avr-gcc-linux32.tgz" />
+        </exec>
+
+        <mkdir dir="build/avr-gcc-481" />
+        <copy todir="build/avr-gcc-481"> <fileset dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1/hardware/tools/avr/" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc-481/" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-481-linux32.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc-481" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="i386" />
+            </manifest>
+        </jar>
+        <delete dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1" />
+        <delete dir="build" />
+    </target>
+
+    <target name="linux64">
+        <mkdir dir="files" />
+        <get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-linux64.tgz' dest='files/avr-gcc-linux64.tgz' usetimestamp='true' />
+        <exec dir="files" executable="tar">
+            <arg value="-zxf" />
+            <arg value="avr-gcc-linux64.tgz" />
+        </exec>
+
+        <mkdir dir="build/avr-gcc-481" />
+        <copy todir="build/avr-gcc-481"> <fileset dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1/hardware/tools/avr/" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc-481/" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-481-linux64.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc-481" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="amd64" />
+            </manifest>
+        </jar>
+        <delete dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1" />
+        <delete dir="build" />
+    </target>
+
+    <target name="windows">
+        <mkdir dir="files" />
+        <get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-windows.zip' dest='files/avr-gcc-windows.zip' usetimestamp='true' />
+        <unzip dest="files" src="files/avr-gcc-windows.zip" overwrite="false" />
+
+        <mkdir dir="build/avr-gcc-481" />
+        <copy todir="build/avr-gcc-481"> <fileset dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1/hardware/tools/avr/" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc-481/" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc-481/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-481-windows.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc-481" />
+                <attribute name="Family" value="avr" />
+                <attribute name="Platform" value="windows" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1" />
+        <delete dir="build" />
+    </target>
+</project>
