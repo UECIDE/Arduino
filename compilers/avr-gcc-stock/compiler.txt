@@ -1,7 +1,7 @@
 name=avr-gcc
 version=%VERSION%
 revision=%REVISION%
-family=avr
+family=avr::avrtiny
 
 optimize=-Os
 warnings=-w

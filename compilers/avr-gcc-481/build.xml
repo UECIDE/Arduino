@@ -2,7 +2,7 @@
 <project name="avr-gcc-481" default="build">
 
     <property name="version" value="4.8.1" />
-    <property name="revision" value="1" />
+    <property name="revision" value="2" />
 
     <target name="build" depends="structure,linux32,linux64,macosx,windows">
     </target>
@@ -32,7 +32,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc-481" />
-                <attribute name="Family" value="avr" />
+                <attribute name="Family" value="avr,avrtiny" />
                 <attribute name="Platform" value="macosx" />
                 <attribute name="Arch" value="any" />
             </manifest>
@@ -60,7 +60,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc-481" />
-                <attribute name="Family" value="avr" />
+                <attribute name="Family" value="avr,avrtiny" />
                 <attribute name="Platform" value="linux" />
                 <attribute name="Arch" value="i386" />
             </manifest>
@@ -87,7 +87,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc-481" />
-                <attribute name="Family" value="avr" />
+                <attribute name="Family" value="avr,avrtiny" />
                 <attribute name="Platform" value="linux" />
                 <attribute name="Arch" value="amd64" />
             </manifest>
@@ -111,7 +111,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc-481" />
-                <attribute name="Family" value="avr" />
+                <attribute name="Family" value="avr,avrtiny" />
                 <attribute name="Platform" value="windows" />
                 <attribute name="Arch" value="any" />
             </manifest>

@@ -2,7 +2,7 @@
 <project name="cosa" default="build">
 
     <property name="version" value="1" />
-    <property name="revision" value="2" />
+    <property name="revision" value="3" />
 
     <target name="update">
         <mkdir dir="files" />
@@ -29,11 +29,10 @@
         <copy todir="build/Cosa/examples"> <fileset dir="files/Cosa/examples/" includes="**/*"/> </copy>
 
         <copy todir="build/Cosa/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
-        <copy todir="build/Cosa" file="../../files/Arduino/build/shared/lib/keywords.txt" />
         <copy todir="build/Cosa" file="core.txt" />
         <replace file="build/Cosa/core.txt" token="%VERSION%" value="${version}" />
         <replace file="build/Cosa/core.txt" token="%REVISION%" value="${revision}" />
-        <replace dir="build/Cosa" token="__PROGMEM" value="PROGMEM" includes="**/*" excludes="**/Types.h" />
+        <!--replace dir="build/Cosa" token="__PROGMEM" value="PROGMEM" includes="**/*" excludes="**/Types.h" /-->
 
 
         <jar basedir="build" destfile="Cosa.jar">
