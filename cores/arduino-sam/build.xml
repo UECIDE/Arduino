@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="arduino-sam" default="build">
 
-    <property name="version" value="1.0.5" />
+    <property name="version" value="1.5.5" />
     <property name="revision" value="1" />
 
     <target name="update">
@@ -44,10 +44,10 @@
             <manifest>
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Arduino" />
-                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Compiler" value="arm-sam-gcc" />
                 <attribute name="Core" value="${ant.project.name}" />
                 <attribute name="Platform" value="any" />
-                <attribute name="Family" value="avr" />
+                <attribute name="Family" value="arm-sam" />
                 <attribute name="Description" value="Arduino 1.5.5 SAM API" />
             </manifest>
         </jar>
