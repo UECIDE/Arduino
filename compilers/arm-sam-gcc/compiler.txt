@@ -1,6 +1,7 @@
-name=avr-sam-gcc
+name=arm-sam-gcc
 version=%VERSION%
 revision=%REVISION%
+family=arm-sam
 
 cflags=-g::-Os::-w::-ffunction-sections::-fdata-sections::-nostdlib::--param::max-inline-insns-single=500::-Dprintf=iprintf::-mthumb
 cppflags=-g::-Os::-w::-ffunction-sections::-fdata-sections::-nostdlib::--param::max-inline-insns-single=500::-fno-rtti::-fno-exceptions::-Dprintf=iprint::-mthumb
