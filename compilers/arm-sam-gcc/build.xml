@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<project name="arm-sam-gcc" default="build">
+
+    <property name="version" value="4.4.1" />
+    <property name="revision" value="2010q1-188" />
+
+    <target name="build" depends="linux,macosx,windows">
+    </target>
+
+    <target name="install" depends="build">
+        <move file="${ant.project.name}-linux.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="${ant.project.name}-macosx.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="${ant.project.name}-windows.jar" todir="/var/www/uecide/plugins/compilers" />
+    </target>
+
+    <target name="macosx">
+        <mkdir dir="build/${ant.project.name}" />
+        <mkdir dir="files" />
+        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-macos.tar.gz" dest="files/gcc-arm-none-eabi-macosx.tar.gz" usetimestamp="true" />
+        <exec executable="tar" dir="files">
+            <arg value="-zxf" />
+            <arg value="gcc-arm-none-eabi-macosx.tar.gz" />
+        </exec>
+        <copy todir="build/${ant.project.name}"> <fileset dir="files/g++_arm_none_eabi" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-macosx.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="arm-sam" />
+                <attribute name="Platform" value="macosx" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="linux">
+        <mkdir dir="build/${ant.project.name}" />
+        <mkdir dir="files" />
+        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-linux32.tar.gz" dest="files/gcc-arm-none-eabi-linux.tar.gz" usetimestamp="true" />
+        <exec dir="files" executable="tar">
+            <arg value="-zxf" />
+            <arg value="gcc-arm-none-eabi-linux.tar.gz" />
+        </exec>
+        <copy todir="build/${ant.project.name}"> <fileset dir="files/g++_arm_none_eabi" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-linux.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="arm-sam" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="i386,amd64" />
+            </manifest>
+        </jar>
+        <delete dir="files/g++_arm_none_eabi" />
+        <delete dir="build" />
+    </target>
+
+    <target name="windows">
+        <mkdir dir="build/${ant.project.name}" />
+        <mkdir dir="files" />
+        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-win32.tar.gz" dest="files/gcc-arm-none-eabi-windows.tar.gz" usetimestamp="true" />
+        <exec dir="files" executable="tar">
+            <arg value="-zxf" />
+            <arg value="gcc-arm-none-eabi-windows.tar.gz" />
+        </exec>
+        <copy todir="build/${ant.project.name}"> <fileset dir="files/g++_arm_none_eabi" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/${ant.project.name}/" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="${ant.project.name}-windows.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Arduino" />
+                <attribute name="Compiler" value="${ant.project.name}" />
+                <attribute name="Family" value="arm-sam" />
+                <attribute name="Platform" value="windows" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/tools" />
+        <delete dir="build" />
+    </target>
+
+    <target name="clean">
+        <delete dir="build" />
+        <delete dir="files" />
+        <delete file="${ant.project.name}-linux.jar" />
+        <delete file="${ant.project.name}-macosx.jar" />
+        <delete file="${ant.project.name}-windows.jar" />
+    </target>
+</project>
+<!--
+http://arduino.googlecode.com/files/gcc-arm-none-eabi-4.4.1-2010q1-188-win32.tar.gz
+http://arduino.googlecode.com/files/gcc-arm-none-eabi-4.4.1-2010q1-188-linux32.tar.gz
+-->
