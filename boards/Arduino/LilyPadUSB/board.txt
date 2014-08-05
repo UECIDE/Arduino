@@ -1,5 +1,5 @@
 variant=LilyPadUSB
-name=LilyPad Arduino USB
+description=LilyPad Arduino USB
 board.flags=-DUSBCON::-DUSB_VID=0x2341::-DUSB_PID=0x0036
 upload.protocol=avr109
 upload.maximum_size=28672
@@ -26,3 +26,4 @@ upload.using=usbcdc
 upload.reset.baud=1200
 
 core=arduino
+name=LilyPadUSB

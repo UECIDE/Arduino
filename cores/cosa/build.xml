@@ -1,19 +1,23 @@
 <?xml version="1.0"?>
 <project name="cosa" default="build">
 
+    <sequential>
     <property name="version" value="1" />
-    <property name="revision" value="3" />
+    </sequential>
 
     <target name="update">
         <mkdir dir="files" />
         <exec executable="git" failonerror="false" dir="files">
             <arg value="clone" />
-            <arg value="--depth" />
-            <arg value="1" />
             <arg value="git@github.com:mikaelpatel/Cosa.git" />
         </exec>
         <exec executable="git" failonerror="true" dir="files/Cosa">
             <arg value="pull" />
+        </exec>
+        <exec dir="files/Cosa" executable="git" outputproperty="revision" failifexecutionfails="false" errorproperty="">
+            <arg value="rev-list" />
+            <arg value="--count" />
+            <arg value="HEAD" />
         </exec>
     </target>
 
@@ -21,12 +25,18 @@
         <mkdir dir="build" />
         <mkdir dir="build/Cosa" />
         <mkdir dir="build/Cosa/api" />
+        <mkdir dir="build/Cosa/icons" />
         <mkdir dir="build/Cosa/examples" />
         <mkdir dir="build/Cosa/libraries" />
         <mkdir dir="build/Cosa/tools" />
 
+        <echo>
+Building Cosa core version ${version}.${revision}
+        </echo>
+
         <copy todir="build/Cosa/api"> <fileset dir="files/Cosa/cores/cosa/" includes="**/*"/> </copy>
         <copy todir="build/Cosa/examples"> <fileset dir="files/Cosa/examples/" includes="**/*"/> </copy>
+        <copy todir="build/Cosa/icons"> <fileset dir="icons/" includes="**/*"/> </copy>
 
         <copy todir="build/Cosa/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
         <copy todir="build/Cosa" file="core.txt" />
@@ -49,7 +59,7 @@
     </target>
 
     <target name="install" depends="build">
-        <move file="Cosa.jar" todir="/var/www/uecide/plugins/cores" />
+        <move file="Cosa.jar" todir="/var/www/uecide/plugins-087/cores" />
     </target>
 
     <target name="clean">

@@ -1,5 +1,5 @@
 variant=leonardo
-name=Arduino Leonardo
+description=Arduino Leonardo
 upload.protocol=avr109
 upload.maximum_size=28672
 upload.speed=57600
@@ -27,3 +27,4 @@ upload.arduino.reset.baud=1200
 upload.arduino.dtr=no
 upload.arduino.rts=no
 core=arduino
+name=leonardo

@@ -1,5 +1,5 @@
 variant=mega
-name=Arduino Mega (ATmega1280)
+description=Arduino Mega (ATmega1280)
 upload.protocol=arduino
 upload.maximum_size=126976
 upload.speed=57600
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=mega

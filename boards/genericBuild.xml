@@ -36,15 +36,20 @@
                        replace="_"
                        global="true"/>
 
+        <condition property="core" value="arduino" else="arduino-sam">
+            <equals arg1="${family}" arg2="avr" />
+        </condition>
+
         <jar destfile="${prefix}-${subdir}.jar">
             <zipfileset dir="${subdir}" prefix="${group}/${subdir}"/>
             <manifest>
                 <attribute name="Group" value="${group}" />
                 <attribute name="Board" value="${subdir}" />
+                <attribute name="Core" value="${core}" />
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="${group}" />
                 <attribute name="Platform" value="any" />
-                <attribute name="Description" value="${name}" />
+                <attribute name="Description" value="${description}" />
                 <attribute name="Family" value="${family}" />
             </manifest>
         </jar>
@@ -52,7 +57,7 @@
 
     <target name="install-board">
         <basename file="${filepath}" property="file"/>
-        <move file="${file}" todir="/var/www/uecide/plugins/boards/" />
+        <move file="${file}" todir="/var/www/uecide/plugins-087/boards/" />
     </target>
 
 </project>

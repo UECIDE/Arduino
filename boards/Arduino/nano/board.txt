@@ -1,5 +1,5 @@
 variant=nano
-name=Arduino Nano w/ ATmega168
+description=Arduino Nano w/ ATmega168
 upload.protocol=arduino
 upload.maximum_size=14336
 upload.speed=19200
@@ -19,3 +19,4 @@ family=avr
 version=0.4
 revision=1
 core=arduino
+name=nano

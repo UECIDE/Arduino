@@ -1,5 +1,5 @@
 variant=mega2560
-name=Arduino Mega 2560 or Mega ADK
+description=Arduino Mega 2560 or Mega ADK
 upload.protocol=wiring
 upload.maximum_size=258048
 upload.speed=115200
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=mega2560

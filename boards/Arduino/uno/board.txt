@@ -1,5 +1,5 @@
 variant=uno
-name=Arduino Uno
+description=Arduino Uno
 upload.protocol=arduino
 upload.maximum_size=32256
 upload.speed=115200
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=uno

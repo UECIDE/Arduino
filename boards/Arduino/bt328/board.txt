@@ -1,5 +1,5 @@
 variant=bt328
-name=Arduino BT w/ ATmega328
+description=Arduino BT w/ ATmega328
 upload.protocol=arduino
 upload.maximum_size=28672
 upload.speed=19200
@@ -20,3 +20,4 @@ family=avr
 version=0.3
 revision=1
 core=arduino
+name=bt328

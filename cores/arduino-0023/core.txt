@@ -9,6 +9,8 @@ core.version=23
 version=%VERSION%
 revision=%REVISION%
 
+core.library.api=api
+
 family=avr
 
 library.path=libraries
@@ -32,3 +34,11 @@ upload.arduino.rts=yes
 upload.protocol=arduino
 
 sketch.upload=arduino
+
+icon.128=icons/arduino128.png
+icon.64=icons/arduino64.png
+icon.48=icons/arduino48.png
+icon.32=icons/arduino32.png
+icon.22=icons/arduino22.png
+icon.16=icons/arduino16.png
+

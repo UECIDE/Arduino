@@ -1,5 +1,5 @@
 variant=lilypad
-name=LilyPad Arduino w/ ATmega168
+description=LilyPad Arduino w/ ATmega168
 upload.protocol=arduino
 upload.maximum_size=14336
 upload.speed=19200
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=lilypad

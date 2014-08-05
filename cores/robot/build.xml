@@ -2,7 +2,7 @@
 <project name="robot" default="build">
 
     <property name="version" value="1.0.5" />
-    <property name="revision" value="1" />
+    <property name="revision" value="3" />
 
     <target name="update">
         <mkdir dir="../../files" />
@@ -12,25 +12,24 @@
             <arg value="1" />
             <arg value="git@github.com:arduino/Arduino.git" />
         </exec>
-        <exec executable="git" failonerror="true" dir="../../files/Arduino">
-            <arg value="pull" />
-        </exec>
     </target>
 
     <target name="build" depends="update">
         <mkdir dir="build" />
         <mkdir dir="build/robot" />
         <mkdir dir="build/robot/api" />
+        <mkdir dir="build/robot/icons" />
         <mkdir dir="build/robot/examples" />
         <mkdir dir="build/robot/libraries" />
         <mkdir dir="build/robot/tools" />
         <copy todir="build/robot/api"> <fileset dir="../../files/Arduino/hardware/arduino/cores/robot/" includes="**/*"/> </copy>
         <copy todir="build/robot/libraries"> <fileset dir="../../files/Arduino/libraries/" includes="**/*"/> </copy>
         <copy todir="build/robot/examples"> <fileset dir="../../files/Arduino/build/shared/examples/" includes="**/*"/> </copy>
+        <copy todir="build/robot/icons"> <fileset dir="icons/" includes="**/*"/> </copy>
 
         <copy todir="build/robot/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
         <copy todir="build/robot" file="../../files/Arduino/build/shared/lib/keywords.txt" />
-        <copy todir="build/robot" file="core.txt" />
+        <copy todir="build/robot" file="core.txt" overwrite="true" />
         <replace file="build/robot/core.txt" token="%VERSION%" value="${version}" />
         <replace file="build/robot/core.txt" token="%REVISION%" value="${revision}" />
 
@@ -48,7 +47,7 @@
     </target>
 
     <target name="install" depends="build">
-        <move file="robot.jar" todir="/var/www/uecide/plugins/cores" />
+        <move file="robot.jar" todir="/var/www/uecide/plugins-087/cores" />
     </target>
 
 

@@ -1,4 +1,4 @@
-name=Arduino Due (Native USB Port)
+description=Arduino Due (Native USB Port)
 group=Arduino
 upload.tool=bossac
 upload.protocol=sam-ba
@@ -26,3 +26,4 @@ family=arm-sam
 upload.using=usbcdc
 upload.reset.baud=1200
 core=arduino-sam
+name=arduino_due_x

@@ -2,12 +2,30 @@ name=Cosa
 description=Cosa: An Object-Oriented Platform for Arduino Programming.
 compiler=avr-gcc
 
-core.path=api
 core.flags=-DF_CPU=${build.f_cpu}::-DARDUINO=${core.version}::-D${board}
 core.header=Arduino.h
 core.version=105
 version=%VERSION%
 revision=%REVISION%
+
+core.library.api=api
+core.library.Cosa=api/Cosa::api/Cosa/Driver
+core.library.AVR=api/Cosa/AVR
+core.library.Canvas=api/Cosa/Canvas::api/Cosa/Canvas/Font::api/Cosa/Canvas/Driver::api/Cosa/Canvas/Element::api/Cosa/Canvas/Icon
+core.library.Cipher=api/Cosa/Cipher
+core.library.Fai=api/Cosa/Fai
+core.library.FS=api/Cosa/FS
+core.library.INET=api/Cosa/INET
+core.library.IOStream=api/Cosa/IOStream::api/Cosa/IOStream/Driver
+core.library.LCD=api/Cosa/LCD::api/Cosa/LCD/Driver
+core.library.Nucleo=api/Cosa/Nucleo
+core.library.OWI=api/Cosa/OWI::api/Cosa/OWI/Driver
+core.library.Socket=api/Cosa/Socket::api/Cosa/Socket/Driver
+core.library.SPI=api/Cosa/SPI::api/Cosa/SPI/Driver
+core.library.TWI=api/Cosa/TWI::api/Cosa/TWI/Driver
+core.library.USB=api/Cosa/USB
+core.library.USI=api/Cosa/USI
+core.library.Wireless=api/Cosa/Wireless::api/Cosa/Wireless/Driver::api/Cosa/Wireless/Driver/VWI::api/Cosa/Wireless/Driver/VWI/Codec
 
 family=avr
 
@@ -28,3 +46,11 @@ upload.arduino.name=Upload direct to an Arduino board
 upload.protocol=arduino
 
 sketch.upload=arduino
+
+icon.128=icons/cosa128.png
+icon.64=icons/cosa64.png
+icon.48=icons/cosa48.png
+icon.32=icons/cosa32.png
+icon.22=icons/cosa22.png
+icon.16=icons/cosa16.png
+

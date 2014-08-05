@@ -1,5 +1,5 @@
 variant=mini328
-name=Arduino Mini w/ ATmega328
+description=Arduino Mini w/ ATmega328
 upload.protocol=arduino
 upload.maximum_size=28672
 upload.speed=115200
@@ -19,3 +19,4 @@ family=avr
 version=0.3
 revision=1
 core=arduino
+name=mini328

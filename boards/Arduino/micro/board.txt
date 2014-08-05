@@ -1,5 +1,5 @@
 variant=micro
-name=Arduino Micro
+description=Arduino Micro
 upload.protocol=avr109
 upload.maximum_size=28672
 upload.speed=57600
@@ -25,3 +25,4 @@ revision=1
 upload.using=usbcdc
 upload.reset.baud=1200
 core=arduino
+name=micro

@@ -1,5 +1,5 @@
 variant=lilypad328
-name=LilyPad Arduino w/ ATmega328
+description=LilyPad Arduino w/ ATmega328
 upload.protocol=arduino
 upload.maximum_size=30720
 upload.speed=57600
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=lilypad328

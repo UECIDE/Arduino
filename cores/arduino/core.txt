@@ -1,5 +1,5 @@
 name=arduino
-description=The traditional Arduino API, currently version 1.0.5
+description=Arduino 1.0.5
 compiler=avr-gcc
 
 core.path=api
@@ -9,6 +9,8 @@ core.version=105
 version=%VERSION%
 revision=%REVISION%
 
+core.library.api=api
+
 family=avr
 
 library.path=libraries
@@ -17,6 +19,7 @@ examples.path=examples
 board=_UNKNOWN_BOARD_
 
 upload.arduino.name=Upload direct to an Arduino board
+upload.arduino.command.freebsd=${core.root}/tools/freebsd/avrdude::-D::-V::-p${build.mcu}::-P${port}::-b${upload.speed}::-C${core.root}/tools/freebsd/avrdude.conf::-c${upload.protocol}::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
 upload.arduino.command.linux_arm=${core.root}/tools/linux_pi/avrdude::-D::-V::-p${build.mcu}::-P${port}::-b${upload.speed}::-C${core.root}/tools/linux_pi/avrdude.conf::-c${upload.protocol}::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
 upload.arduino.command.linux_amd64=${core.root}/tools/linux64/avrdude::-D::-V::-p${build.mcu}::-P${port}::-b${upload.speed}::-C${core.root}/tools/linux64/avrdude.conf::-c${upload.protocol}::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
 upload.arduino.command.linux_i386=${core.root}/tools/linux32/avrdude::-D::-V::-p${build.mcu}::-P${port}::-b${upload.speed}::-C${core.root}/tools/linux32/avrdude.conf::-c${upload.protocol}::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
@@ -32,3 +35,11 @@ upload.arduino.rts=yes
 upload.protocol=arduino
 
 sketch.upload=arduino
+
+icon.128=icons/arduino128.png
+icon.64=icons/arduino64.png
+icon.48=icons/arduino48.png
+icon.32=icons/arduino32.png
+icon.22=icons/arduino22.png
+icon.16=icons/arduino16.png
+

@@ -2,7 +2,7 @@
 <project name="arduino-0023" default="build">
 
     <property name="version" value="0023" />
-    <property name="revision" value="1" />
+    <property name="revision" value="3" />
 
     <target name="build">
         <mkdir dir="files" />
@@ -11,16 +11,18 @@
         <mkdir dir="build" />
         <mkdir dir="build/arduino-0023" />
         <mkdir dir="build/arduino-0023/api" />
+        <mkdir dir="build/arduino-0023/icons" />
         <mkdir dir="build/arduino-0023/examples" />
         <mkdir dir="build/arduino-0023/libraries" />
         <mkdir dir="build/arduino-0023/tools" />
         <copy todir="build/arduino-0023/api"> <fileset dir="files/arduino-0023/hardware/arduino/cores/arduino/" includes="**/*"/> </copy>
         <copy todir="build/arduino-0023/libraries"> <fileset dir="files/arduino-0023/libraries/" includes="**/*"/> </copy>
         <copy todir="build/arduino-0023/examples"> <fileset dir="files/arduino-0023/examples/" includes="**/*"/> </copy>
+        <copy todir="build/arduino-0023/icons"> <fileset dir="icons" includes="**/*"/> </copy>
 
         <copy todir="build/arduino-0023/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
         <copy todir="build/arduino-0023" file="files/arduino-0023/lib/keywords.txt" />
-        <copy todir="build/arduino-0023" file="core.txt" />
+        <copy todir="build/arduino-0023" file="core.txt" overwrite="true" />
         <replace file="build/arduino-0023/core.txt" token="%VERSION%" value="${version}" />
         <replace file="build/arduino-0023/core.txt" token="%REVISION%" value="${revision}" />
 
@@ -38,7 +40,7 @@
     </target>
 
     <target name="install" depends="build">
-        <move file="arduino-0023.jar" todir="/var/www/uecide/plugins/cores" />
+        <move file="arduino-0023.jar" todir="/var/www/uecide/plugins-087/cores" />
     </target>
 
     <target name="clean">

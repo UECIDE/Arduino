@@ -1,5 +1,5 @@
 variant=pro
-name=Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega168
+description=Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega168
 upload.protocol=arduino
 upload.maximum_size=14336
 upload.speed=19200
@@ -19,3 +19,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=pro

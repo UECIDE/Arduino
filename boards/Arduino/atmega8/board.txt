@@ -1,5 +1,5 @@
 variant=atmega8
-name=Arduino NG or older w/ ATmega8
+description=Arduino NG or older w/ ATmega8
 upload.protocol=arduino
 upload.maximum_size=7168
 upload.speed=19200
@@ -18,3 +18,4 @@ family=avr
 version=0.2
 revision=1
 core=arduino
+name=atmega8

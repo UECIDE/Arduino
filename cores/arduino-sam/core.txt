@@ -1,12 +1,16 @@
 name=arduino-sam
-description=Arduino 1.5.4 ARM core
+description=Arduino 1.5.6 ARM core
 compiler=arm-sam-gcc
 
-core.path=api
-core.flags=-DF_CPU=${build.f_cpu}::-DARDUINO=${core.version}::-D${board}::-I${core.root}/${core.api}/include::-DARDUINO_ARCH_SAM::-I${core.root}/system/libsam::-I${core.root}/system/CMSIS/CMSIS/Include::-I${core.root}/system/CMSIS/Device/ATMEL::-DVARIANT_MCK=${build.f_cpu}
+core.flags=--std=gnu99::-DF_CPU=${build.f_cpu}::-DARDUINO=${core.version}::-D${board}::-I${core.root}/${core.api}/include::-DARDUINO_ARCH_SAM::-I${core.root}/system/libsam::-I${core.root}/system/libsam/include::-I${core.root}/system/CMSIS/CMSIS/Include::-I${core.root}/system/CMSIS/Device/ATMEL::-I${core.root}/system/CMSIS/Device/ATMEL/sam3xa/include::-DVARIANT_MCK=${build.f_cpu}
+
+core.ldflags=-T${board.root}/${ldscript}
 core.header=Arduino.h
-core.version=155
-core.revision=1
+core.version=156
+core.revision=%REVISION%
+
+core.library.api=api::api/USB
+core.library.sam=system/libsam/source::/system/CMSIS/Device/ATMEL::system/CMSIS/Device/ATMEL/sam3xa/source
 
 version=%VERSION%
 revision=%REVISION%
@@ -32,3 +36,11 @@ upload.bossac.dtr=yes
 upload.bossac.rts=yes
 
 sketch.upload=bossac
+
+icon.128=icons/arduino128.png
+icon.64=icons/arduino64.png
+icon.48=icons/arduino48.png
+icon.32=icons/arduino32.png
+icon.22=icons/arduino22.png
+icon.16=icons/arduino16.png
+
