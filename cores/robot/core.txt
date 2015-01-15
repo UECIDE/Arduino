@@ -36,7 +36,19 @@ upload.arduino.rts=yes
 
 upload.protocol=arduino
 
-sketch.upload=arduino
+upload.usbasp.name=Upload using USBasp
+upload.usbasp.command.freebsd=${core.root}/tools/freebsd/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/freebsd/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.command.linux_arm=${core.root}/tools/linux_pi/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/linux_pi/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.command.linux_amd64=${core.root}/tools/linux64/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/linux64/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.command.linux_i386=${core.root}/tools/linux32/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/linux32/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.command.macosx=${core.root}/tools/macosx/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/macosx/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.command.windows=${core.root}/tools/windows/avrdude::-B10::-p${build.mcu}::-C${core.root}/tools/windows/avrdude.conf::-cusbasp::-Uflash:w:${build.path}/${filename}.hex:i::${verbose}
+upload.usbasp.using=hid
+upload.usbasp.verbose=-v
+upload.usbasp.quiet=-q::-q
+
+
+sketch.upload=arduino::usbasp
 
 icon.128=icons/arduino128.png
 icon.64=icons/arduino64.png

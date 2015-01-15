@@ -2,16 +2,16 @@
 <project name="avr-gcc-481" default="build">
 
     <property name="version" value="4.8.1" />
-    <property name="revision" value="2" />
+    <property name="revision" value="5" />
 
     <target name="build" depends="structure,linux32,linux64,macosx,windows">
     </target>
 
     <target name="install" depends="build">
-        <move file="avr-gcc-481-linux32.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-481-linux64.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-481-macosx.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-481-windows.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="avr-gcc-481-linux32.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-481-linux64.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-481-macosx.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-481-windows.jar" todir="/var/www/uecide/plugins-088/compilers" />
     </target>
 
     <target name="structure">
@@ -98,12 +98,9 @@
 
     <target name="windows">
         <mkdir dir="files" />
-        <get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-windows.zip' dest='files/avr-gcc-windows.zip' usetimestamp='true' />
-        <unzip dest="files" src="files/avr-gcc-windows.zip" overwrite="false" />
+        <!--get src='http://downloads.arduino.cc/arduino-avr-toolchain-nightly-gcc-4.8.1-windows.zip' dest='files/avr-gcc-windows.zip' usetimestamp='true' /-->
+        <unzip dest="build" src="files/avr-gcc-481.zip" overwrite="true" />
 
-        <mkdir dir="build/avr-gcc-481" />
-        <copy todir="build/avr-gcc-481"> <fileset dir="files/arduino-avr-toolchain-nightly-gcc-4.8.1/hardware/tools/avr/" includes="**/*"/> </copy>
-        <copy file="compiler.txt" todir="build/avr-gcc-481/" />
         <replace file="build/avr-gcc-481/compiler.txt" token="%VERSION%" value="${version}" />
         <replace file="build/avr-gcc-481/compiler.txt" token="%REVISION%" value="${revision}" />
         <jar basedir="build" destfile="avr-gcc-481-windows.jar">

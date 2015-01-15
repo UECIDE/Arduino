@@ -40,6 +40,8 @@ Building Cosa core version ${version}.${revision}
 
         <copy todir="build/Cosa/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
         <copy todir="build/Cosa" file="core.txt" />
+
+        <copy todir="build/Cosa/api/Cosa" file="Board.h" />
         <replace file="build/Cosa/core.txt" token="%VERSION%" value="${version}" />
         <replace file="build/Cosa/core.txt" token="%REVISION%" value="${revision}" />
         <!--replace dir="build/Cosa" token="__PROGMEM" value="PROGMEM" includes="**/*" excludes="**/Types.h" /-->
@@ -59,7 +61,7 @@ Building Cosa core version ${version}.${revision}
     </target>
 
     <target name="install" depends="build">
-        <move file="Cosa.jar" todir="/var/www/uecide/plugins-087/cores" />
+        <move file="Cosa.jar" todir="/var/www/uecide/plugins-088/cores" />
     </target>
 
     <target name="clean">

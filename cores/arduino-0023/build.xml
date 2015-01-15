@@ -2,7 +2,7 @@
 <project name="arduino-0023" default="build">
 
     <property name="version" value="0023" />
-    <property name="revision" value="3" />
+    <property name="revision" value="5" />
 
     <target name="build">
         <mkdir dir="files" />
@@ -40,7 +40,7 @@
     </target>
 
     <target name="install" depends="build">
-        <move file="arduino-0023.jar" todir="/var/www/uecide/plugins-087/cores" />
+        <move file="arduino-0023.jar" todir="/var/www/uecide/plugins-088/cores" />
     </target>
 
     <target name="clean">

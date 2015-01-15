@@ -21,7 +21,7 @@ board.flags=-D__SAM3X8E__::-DUSB_PID=${board.pid}::-DUSB_VID=${board.vid}::-DUSB
 board.ldflags=-L${board.root}::-lsam_sam3x8e_gcc_rel
 ldscript=linker_scripts/gcc/flash.ld
 version=0.6
-revision=1
+revision=3
 family=arm-sam
 upload.using=usbcdc
 upload.reset.baud=1200

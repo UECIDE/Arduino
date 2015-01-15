@@ -2,16 +2,17 @@
 <project name="avr-gcc" default="build">
 
     <property name="version" value="4.3.2" />
-    <property name="revision" value="2" />
+    <property name="revision" value="7" />
 
-    <target name="build" depends="structure,linux32,linux64,macosx,windows">
+    <target name="build" depends="structure,linux32,linux64,macosx,windows,pi">
     </target>
 
     <target name="install" depends="build">
-        <move file="avr-gcc-linux32.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-linux64.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-macosx.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="avr-gcc-windows.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="avr-gcc-linux32.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-linux64.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-macosx.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-windows.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="avr-gcc-pi.jar" todir="/var/www/uecide/plugins-088/compilers" />
     </target>
 
     <target name="structure">
@@ -22,9 +23,11 @@
         <mkdir dir="../../files" />
         <exec executable="git" failonerror="false" dir="../../files">
             <arg value="clone" />
-            <arg value="--depth" />
-            <arg value="1" />
             <arg value="git@github.com:arduino/Arduino.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="../../files/Arduino">
+            <arg value="checkout" />
+            <arg value="master" />
         </exec>
         <exec executable="git" failonerror="true" dir="../../files/Arduino">
             <arg value="pull" />
@@ -35,7 +38,14 @@
         <mkdir dir="build/avr-gcc" />
         <mkdir dir="files" />
         <unzip dest="files" src="../../files/Arduino/build/macosx/dist/tools-universal.zip" overwrite="false" />
+        <unzip dest="files" src="files/MAC ld.zip" overwrite="false" />
         <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy todir="build/avr-gcc/avr/include/avr" file="../../files/Arduino/build/macosx/dist/eeprom.h" overwrite="true" />
+        <copy todir="build/avr-gcc/avr/bin" file="files/ld" overwrite="true" />
+        <copy todir="build/avr-gcc/avr-3/bin" file="files/ld" overwrite="true" />
+        <copy todir="build/avr-gcc/avr-4/bin" file="files/ld" overwrite="true" />
+        <copy todir="build/avr-gcc/etc/options/gcc-version/bin" file="files/ld" overwrite="true" />
+        <copy tofile="build/avr-gcc/bin/avr-ld" file="files/ld" overwrite="true" />
         <copy file="compiler.txt" todir="build/avr-gcc/" />
         <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
         <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
@@ -44,12 +54,13 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc" />
-                <attribute name="Family" value="avr,avrtiny" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
                 <attribute name="Platform" value="macosx" />
                 <attribute name="Arch" value="any" />
             </manifest>
         </jar>
         <delete dir="files/tools" />
+        <delete file="files/ld" />
         <delete dir="build" />
     </target>
 
@@ -70,7 +81,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc" />
-                <attribute name="Family" value="avr,avrtiny" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
                 <attribute name="Platform" value="linux" />
                 <attribute name="Arch" value="i386" />
             </manifest>
@@ -96,7 +107,7 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc" />
-                <attribute name="Family" value="avr,avrtiny" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
                 <attribute name="Platform" value="linux" />
                 <attribute name="Arch" value="amd64" />
             </manifest>
@@ -109,7 +120,11 @@
         <mkdir dir="build/avr-gcc" />
         <mkdir dir="files" />
         <unzip dest="files" src="../../files/Arduino/build/windows/avr_tools.zip" overwrite="false" />
+        <unzip dest="files" src="files/WINDOWS ld.zip" overwrite="false" />
         <copy todir="build/avr-gcc"> <fileset dir="files/tools/avr" includes="**/*"/> </copy>
+        <copy todir="build/avr-gcc/avr/include/avr" file="../../files/Arduino/build/windows/eeprom.h" overwrite="true" />
+        <copy file="files/hardware/tools/avr/avr/bin/ld.exe" todir="build/avr-gcc/avr/bin/" overwrite="true"></copy>
+        <copy file="files/hardware/tools/avr/avr/bin/ld.exe" tofile="build/avr-gcc/bin/avr-ld.exe" overwrite="true"></copy>
         <copy file="compiler.txt" todir="build/avr-gcc/" />
         <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
         <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
@@ -118,12 +133,100 @@
                 <attribute name="Version" value="${version}-${revision}" />
                 <attribute name="Author" value="Majenko Technologies" />
                 <attribute name="Compiler" value="avr-gcc" />
-                <attribute name="Family" value="avr,avrtiny" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
                 <attribute name="Platform" value="windows" />
                 <attribute name="Arch" value="any" />
             </manifest>
         </jar>
         <delete dir="files/tools" />
+        <delete dir="files/hardware" />
         <delete dir="build" />
     </target>
+    <target name="pi">
+        <mkdir dir="build/avr-gcc" />
+        <get src="http://mirrordirector.raspbian.org/raspbian/pool/main/g/gcc-avr/gcc-avr_4.7.2-2_armhf.deb"
+             dest="files/gcc-avr_4.7.2-2_armhf.deb" usetimestamp="true" />
+        <get src="http://mirrordirector.raspbian.org/raspbian/pool/main/b/binutils-avr/binutils-avr_2.20.1-3_armhf.deb"
+             dest="files/binutils-avr_2.20.1-3_armhf.deb" usetimestamp="true" />
+        <get src="http://mirrordirector.raspbian.org/raspbian/pool/main/a/avr-libc/avr-libc_1.8.0-2_all.deb"
+             dest="files/avr-libc_1.8.0-2_all.deb" usetimestamp="true" />
+
+        <exec executable="dpkg-deb">
+            <arg value="--extract" />
+            <arg value="files/gcc-avr_4.7.2-2_armhf.deb" />
+            <arg value="files" />
+        </exec>
+        <exec executable="dpkg-deb">
+            <arg value="--extract" />
+            <arg value="files/binutils-avr_2.20.1-3_armhf.deb" />
+            <arg value="files" />
+        </exec>
+        <exec executable="dpkg-deb">
+            <arg value="--extract" />
+            <arg value="files/avr-libc_1.8.0-2_all.deb" />
+            <arg value="files" />
+        </exec>
+        <copy todir="build/avr-gcc"> <fileset dir="files/usr" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-pi.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
+                <attribute name="Platform" value="linux" />
+                <attribute name="Arch" value="arm" />
+            </manifest>
+        </jar>
+        <delete dir="files/usr" />
+        <delete dir="build" />
+    </target>
+
+    <target name="freebsd">
+        <mkdir dir="build/avr-gcc" />
+        <get src="http://pkg0.bme.freebsd.org/freebsd:10:x86:32/latest/All/avr-gcc-4.5.1_2.txz"
+             dest="files/avr-gcc.txz" usetimestamp="true" />
+
+        <exec executable="tar" dir="files">
+            <arg value="-Jxf" />
+            <arg value="avr-gcc.txz" />
+        </exec>
+
+        <get src="http://pkg0.bme.freebsd.org/freebsd:10:x86:32/latest/All/avr-binutils-2.20.1_1.txz"
+             dest="files/avr-binutils.txz" usetimestamp="true" />
+
+        <exec executable="tar" dir="files">
+            <arg value="-Jxf" />
+            <arg value="avr-binutils.txz" />
+        </exec>
+
+        <get src="http://pkg0.bme.freebsd.org/freebsd:10:x86:32/latest/All/avr-libc-1.8.0_1,1.txz"
+             dest="files/avr-libc.txz" usetimestamp="true" />
+
+        <exec executable="tar" dir="files">
+            <arg value="-Jxf" />
+            <arg value="avr-libc.txz" />
+        </exec>
+
+        <copy todir="build/avr-gcc"> <fileset dir="files/usr/local" includes="**/*"/> </copy>
+        <copy file="compiler.txt" todir="build/avr-gcc/" />
+        <replace file="build/avr-gcc/compiler.txt" token="%VERSION%" value="${version}" />
+        <replace file="build/avr-gcc/compiler.txt" token="%REVISION%" value="${revision}" />
+        <jar basedir="build" destfile="avr-gcc-freebsd.jar">
+            <manifest>
+                <attribute name="Version" value="${version}-${revision}" />
+                <attribute name="Author" value="Majenko Technologies" />
+                <attribute name="Compiler" value="avr-gcc" />
+                <attribute name="Family" value="avr,avrtiny,teensy-avr" />
+                <attribute name="Platform" value="freebsd" />
+                <attribute name="Arch" value="any" />
+            </manifest>
+        </jar>
+        <delete dir="files/usr" />
+        <delete dir="build" />
+    </target>
+
 </project>
+

@@ -2,21 +2,22 @@
 <project name="arm-sam-gcc" default="build">
 
     <property name="version" value="4.4.1" />
-    <property name="revision" value="2010q1-188" />
+    <property name="revision" value="3" />
+    <property name="cversion" value="2010q1-188" />
+
 
     <target name="build" depends="linux,macosx,windows">
     </target>
 
     <target name="install" depends="build">
-        <move file="${ant.project.name}-linux.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="${ant.project.name}-macosx.jar" todir="/var/www/uecide/plugins/compilers" />
-        <move file="${ant.project.name}-windows.jar" todir="/var/www/uecide/plugins/compilers" />
+        <move file="${ant.project.name}-linux.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="${ant.project.name}-macosx.jar" todir="/var/www/uecide/plugins-088/compilers" />
+        <move file="${ant.project.name}-windows.jar" todir="/var/www/uecide/plugins-088/compilers" />
     </target>
-
     <target name="macosx">
         <mkdir dir="build/${ant.project.name}" />
         <mkdir dir="files" />
-        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-macos.tar.gz" dest="files/gcc-arm-none-eabi-macosx.tar.gz" usetimestamp="true" />
+        <get src="https://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${cversion}-macos.tar.gz" dest="files/gcc-arm-none-eabi-macosx.tar.gz" usetimestamp="true" />
         <exec executable="tar" dir="files">
             <arg value="-zxf" />
             <arg value="gcc-arm-none-eabi-macosx.tar.gz" />
@@ -42,7 +43,7 @@
     <target name="linux">
         <mkdir dir="build/${ant.project.name}" />
         <mkdir dir="files" />
-        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-linux32.tar.gz" dest="files/gcc-arm-none-eabi-linux.tar.gz" usetimestamp="true" />
+        <get src="https://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${cversion}-linux32.tar.gz" dest="files/gcc-arm-none-eabi-linux.tar.gz" usetimestamp="true" />
         <exec dir="files" executable="tar">
             <arg value="-zxf" />
             <arg value="gcc-arm-none-eabi-linux.tar.gz" />
@@ -68,7 +69,7 @@
     <target name="windows">
         <mkdir dir="build/${ant.project.name}" />
         <mkdir dir="files" />
-        <get src="http://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${revision}-win32.tar.gz" dest="files/gcc-arm-none-eabi-windows.tar.gz" usetimestamp="true" />
+        <get src="https://arduino.googlecode.com/files/gcc-arm-none-eabi-${version}-${cversion}-win32.tar.gz" dest="files/gcc-arm-none-eabi-windows.tar.gz" usetimestamp="true" />
         <exec dir="files" executable="tar">
             <arg value="-zxf" />
             <arg value="gcc-arm-none-eabi-windows.tar.gz" />
@@ -77,6 +78,58 @@
         <copy file="compiler.txt" todir="build/${ant.project.name}/" />
         <replace file="build/${ant.project.name}/compiler.txt" token="%VERSION%" value="${version}" />
         <replace file="build/${ant.project.name}/compiler.txt" token="%REVISION%" value="${revision}" />
+        <!-- For some idiotic reason the Windows compiler archive seems to also contain the Mac compiler.  We need to remove it. -->
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-addr2line" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-ar" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-as" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-c++" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-c++filt" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-cpp" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-g++" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gcc" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gcc-4.1.1" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gccbug" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gcov" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gdb" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gdbtui" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-gprof" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-ld" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-nm" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-objcopy" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-objdump" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-ranlib" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-readelf" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-run" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-size" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-strings" />
+        <delete file="build/${ant.project.name}/bin/arm-none-eabi-strip" />
+        <delete file="build/${ant.project.name}/bin/dfu-util" />
+
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/addr2line" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/ar" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/as" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/c++" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/c++filt" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/cpp" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/g++" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gcc" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gcc-4.1.1" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gccbug" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gcov" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gdb" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gdbtui" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/gprof" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/ld" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/nm" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/objcopy" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/objdump" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/ranlib" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/readelf" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/run" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/size" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/strings" />
+        <delete file="build/${ant.project.name}/arm-none-eabi/bin/strip" />
+
         <jar basedir="build" destfile="${ant.project.name}-windows.jar">
             <manifest>
                 <attribute name="Version" value="${version}-${revision}" />

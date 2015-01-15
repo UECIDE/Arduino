@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="arduino" default="build">
 
-    <property name="version" value="1.0.5" />
-    <property name="revision" value="6" />
+    <property name="version" value="1.0.6" />
+    <property name="revision" value="2" />
 
     <target name="update">
         <mkdir dir="../../files" />
@@ -14,7 +14,14 @@
         </exec>
         <exec executable="git" failonerror="false" dir="../../files/Arduino">
             <arg value="pull" />
+            <arg value="origin" />
+            <arg value="master" />
         </exec>
+        <exec executable="git" failonerror="false" dir="../../files/Arduino">
+            <arg value="checkout" />
+            <arg value="${version}" />
+        </exec>
+        
     </target>
 
     <target name="build" depends="update">
@@ -24,12 +31,14 @@
         <mkdir dir="build/arduino/icons" />
         <mkdir dir="build/arduino/examples" />
         <mkdir dir="build/arduino/libraries" />
+        <mkdir dir="build/arduino/reference" />
         <mkdir dir="build/arduino/tools" />
         <copy todir="build/arduino/api"> <fileset dir="../../files/Arduino/hardware/arduino/cores/arduino/" includes="**/*"/> </copy>
         <copy todir="build/arduino/api" overwrite="true"> <fileset dir="files" includes="*"/></copy>
         <copy todir="build/arduino/libraries"> <fileset dir="../../files/Arduino/libraries/" includes="**/*"/> </copy>
         <copy todir="build/arduino/examples"> <fileset dir="../../files/Arduino/build/shared/examples/" includes="**/*"/> </copy>
         <copy todir="build/arduino/icons"> <fileset dir="icons/" includes="**/*"/> </copy>
+        <copy todir="build/arduino/reference"> <fileset dir="reference/" includes="**/*"/> </copy>
 
         <copy todir="build/arduino/tools"> <fileset dir="tools/" includes="**/*"/> </copy>
         <copy todir="build/arduino" file="../../files/Arduino/build/shared/lib/keywords.txt" />
@@ -45,13 +54,13 @@
                 <attribute name="Core" value="arduino" />
                 <attribute name="Platform" value="any" />
                 <attribute name="Family" value="avr" />
-                <attribute name="Description" value="Arduino 1.0.5" />
+                <attribute name="Description" value="Arduino ${version}" />
             </manifest>
         </jar>
     </target>
 
     <target name="install" depends="build">
-        <move file="arduino.jar" todir="/var/www/uecide/plugins-087/cores" />
+        <move file="arduino.jar" todir="/var/www/uecide/plugins-088/cores" />
     </target>
 
     <target name="clean">

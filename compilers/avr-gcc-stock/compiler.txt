@@ -1,15 +1,14 @@
 name=avr-gcc
 version=%VERSION%
 revision=%REVISION%
-family=avr::avrtiny
+family=avr::avrtiny::teensy-avr
 
-optimize=-Os
 warnings=-w
 extra.flags=
 
-cflags=-g::${optimize}::${warnings}::-ffunction-sections::-fdata-sections::${extra.flags}
-cppflags=-g::${optimize}::${warnings}::-fno-exceptions::-ffunction-sections::-fdata-sections::${extra.flags}
-ldflags=${optimize}::-Wl,--gc-sections::${extra.flags}
+cflags=-g::${warnings}::-ffunction-sections::-fdata-sections::${extra.flags}
+cppflags=-g::${warnings}::-fno-exceptions::-ffunction-sections::-fdata-sections::${extra.flags}
+ldflags=-Wl,--gc-sections::${extra.flags}
 
 gcc=${compiler.root}/bin/avr-gcc
 gpp=${compiler.root}/bin/avr-g++
@@ -28,4 +27,4 @@ compile.lss=${objdump}::-h::-S::${build.path}/${filename}.elf
 compile.link=${gcc}::${ldflags}::${option.flags}::${option.ldflags}::-mmcu=${build.mcu}::-o::${build.path}/${filename}.elf::${object.filelist}::-L${build.path}::-L${libraries.path}::-Wl,--start-group::${libraries}::-Wl,--end-group::-lm
 compile.size=${size}::${build.path}/${filename}.elf
 
-compiler.error=^([^:]+):(\\d+): error: (.*)
+compiler.error=^(.+):(\\d+): error: (.*)

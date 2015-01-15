@@ -1,0 +1,50 @@
+variant=yun
+description=Arduino Yun
+upload.protocol=avr109
+upload.maximum_size=28672
+upload.speed=57600
+upload.disable_flushing=true
+board.flags=-DUSBCON::-DUSB_VID=0x2341::-DUSB_PID=0x0036
+bootloader.low_fuses=0xff
+bootloader.high_fuses=0xd8
+bootloader.extended_fuses=0xcb
+bootloader.path=caterina
+bootloader.file=Caterina-Leonardo.hex
+bootloader.unlock_bits=0x3F
+bootloader.lock_bits=0x2F
+build.mcu=atmega32u4
+build.f_cpu=16000000L
+build.vid=0x2341
+build.pid=0x8036
+build.core=arduino-156
+build.variant=yun
+group=Arduino
+family=avr
+version=0.8
+revision=5
+upload.arduino.using=usbcdc
+upload.arduino.reset.baud=1200
+upload.arduino.dtr=no
+upload.arduino.rts=no
+core=arduino-156
+name=yun
+mdns.service=_arduino._tcp.local.
+mdns.model.key=board
+mdns.model.value=yun
+mdns.version=distro_version
+mdns.programmer=yunssh
+
+board=ARDUINO_YUN
+
+upload.yunssh.name=Upload to remote Yun at ${ip}
+upload.yunssh.quiet=-qq
+upload.yunssh.using=script
+upload.yunssh.script.0=__builtin_echo::Uploading through the network to IP adress ${ip}
+upload.yunssh.script.1=__builtin_scp::${build.path}/${filename}.hex::${board.user}@${ip}:/tmp/${filename}.hex
+upload.yunssh.script.2=__builtin_echo::Programming target
+upload.yunssh.script.3=__builtin_ssh::${board.user}@${ip}::run-avrdude /tmp/${filename}.hex ${verbose}
+upload.yunssh.script.4=__builtin_echo::Upload complete
+
+board.user=root
+
+sketch.upload=arduino::yunssh
